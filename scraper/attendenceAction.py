@@ -211,7 +211,4 @@ with pd.ExcelWriter(COMPILE) as writer:
                     index=False,
                     sheet_name=f'split_{i+1}')
 
-# %% delete PDF dir
-isExist = os.path.exists(PDF_PATH)
-if isExist:
-    shutil.rmtree(PDF_PATH)
+# %%
