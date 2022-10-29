@@ -1,5 +1,5 @@
 name: auto-scrap-attendence
-on: [push]
+on: [push push]
 jobs:
   build:
     runs-on: ubuntu-latest
