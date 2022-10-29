@@ -2,3 +2,5 @@ pandas
 numpy
 requests
 bs4
+PyPDF2
+pdfminer.six
