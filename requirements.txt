@@ -5,3 +5,4 @@ bs4
 PyPDF2
 pdfminer.six
 Jinja2
+openpyxl
