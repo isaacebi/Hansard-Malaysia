@@ -6,4 +6,3 @@ PyPDF2
 pdfminer.six
 Jinja2
 openpyxl
-shutil
