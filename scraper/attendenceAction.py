@@ -27,7 +27,7 @@ PDF_PATH = os.path.join(PARENT_PATH, 'data', 'PDF')
 FILE_NAME = os.path.join(PDF_PATH, 'hansard_')
 ATTENDENCE = os.path.join(PARENT_PATH, 'data', 'attendance.csv')
 ABSENCE = os.path.join(PARENT_PATH, 'data', 'absence.csv')
-PENGGAL = os.path.join(PARENT_PATH, 'data', 'penggal.csv')
+PENGGAL = "https://raw.githubusercontent.com/isaacebi/Hansard-Malaysia/main/data/penggal.csv"
 COMPILE = os.path.join(PARENT_PATH, 'data', 'compile.xlsx')
 
 # %%
