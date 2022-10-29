@@ -214,4 +214,4 @@ with pd.ExcelWriter(COMPILE) as writer:
 # %% delete PDF dir
 isExist = os.path.exists(PDF_PATH)
 if isExist:
-    os.rmdir(PDF_PATH)
+    shutil.rmtree(PDF_PATH)
