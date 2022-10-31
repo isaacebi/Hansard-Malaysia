@@ -36,6 +36,16 @@ df.date = df.date.dt.date
 sessions = df.session.tolist()
 session_date = dict(zip(df.session,df.date))
 
+# create parent path
+isExist = os.path.exists(PARENT_PATH)
+if not isExist:
+    os.makedirs(PARENT_PATH)
+    
+# create parent path
+isExist = os.path.exists(DATA_PATH)
+if not isExist:
+    os.makedirs(DATA_PATH)
+
 # create folder if not exist
 isExist = os.path.exists(PDF_PATH)
 if not isExist:
