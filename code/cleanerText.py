@@ -21,6 +21,7 @@ PDF = os.path.join(DATA_PATH, 'PDF')
 TEXT = os.path.join(DATA_PATH, 'TEXT')
 COMPILE_TEXT = os.path.join(TEXT, 'compile.txt')
 DIALOG = os.path.join(TEXT, 'compileDialog.txt')
+AHLI_DEWAN2 = os.path.join(DATA_PATH, 'ahliDewan2.csv')
 
 # %%
 # for python 3.5 or later
@@ -49,3 +50,31 @@ txt = spaceDash(txt)
 # check point
 with open(DIALOG, 'w', encoding='utf-8') as f:
     f.write(txt)
+
+# %%
+ahliDewan2 = pd.read_csv(AHLI_DEWAN2)
+
+# %%
+def dialogExtractor(text, ahliDewan):
+    listDialog = []
+
+    for namaTarget in ahliDewan.Nama:
+        text = re.sub(namaTarget, '#namaTarget', text)
+
+    for seat in ahliDewan.Kawasan:
+        pattern = '\[' + seat + '.*?\#namaTarget'
+        matches = re.findall(pattern, text, flags=re.IGNORECASE)
+
+        for match in matches:
+            dialog = {
+                'dialog': match               
+            }
+            listDialog.append(dialog)
+    return listDialog
+
+listDialog = dialogExtractor(txt, ahliDewan2)
+
+# %%
+listDialog = pd.DataFrame(listDialog)
+
+# %%
