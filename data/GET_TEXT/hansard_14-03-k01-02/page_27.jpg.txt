@@ -1,0 +1,74 @@
+DR.27.07.2021 19
+
+Peranan GKVSTF ini adalah untuk menangani krisis dan impak kepada sistem
+kesihatan susulan peningkatan kes. Semasa krisis ini, adalah penting untuk memastikan
+pesakit COVID-19 yang mempunyai gejala teruk mempunyai akses kepada katil COVID-
+19 di hospital atau PKRC bersepadu dan pesakit COVID-19 yang bergejala dipantau awal
+oleh KKM. Fungsi GKVSTF diperkukuh menerusi penggunaan Virtual CAC bagi
+memantau pesakit positif yang bergejala ringan atau tidak bergejala yang menjalani
+isolasi di tempat kediaman masing-masing. Sekiranya gejala mereka bertambah teruk,
+Virtual CAC akan menjadi platform pengesanan awal dan boleh membuat rujukan ke
+hospital untuk rawatan selanjutnya.
+
+Tuan Yang di-Pertua, penyumberluaran ataupun outsourcing perkhidmatan
+kesihatan kepada pihak swasta. Kerjasama_ sektor swasta turut melibatkan
+penyumberluaran. Bagi tujuan tersebut, sebanyak RM56 juta telah diperuntukkan oleh
+kerajaan pada tahun 2020 kepada KKM untuk penyumberluaran pesakit kepada hospital
+swasta bagi mengurangkan masa menunggu yang perlu menjalani pembedahan ataupun
+surgeon kritikal seperti urgent dan semi-urgent perawatan jantung dan kanser.
+
+Penyumberluaran ataupun oustsourcing juga secara tidak langsung dapat
+membantu meningkatkan kapasiti hospital-hospital KKM bagi tujuan merawat pesakit
+COVID-19. Pada tahun 2021, kerajaan telah memperuntukkan sebanyak RM100 juta
+lagi kepada KKM bagi tujuan penyumberluaran perkhidmatan kesihatan ke hospital
+swasta dengan memberikan keutamaan kepada kes-kes di Lembah Klang.
+Penyumberluaran bagi kes-kes lain daripada COVID-19 ini bertujuan untuk
+meningkatkan kapasiti hospital awam bagi merawat kes-kes COVID-19.
+
+Tuan Yang di-Pertua, inisiatif pendigitalan dan analisis biodata raya. Aplikasi
+MySejahtera dan sistem amaran awal iaitu Hotspot Identification for Dynamic
+Engagement (HIDE) adalah inisiatif pendigitalan dalam pengurusan COVID-19 negara.
+Kedua-dua inisiatif ini membantu negara mendapatkan maklumat awal COVID-19 untuk
+menentukan tindakan yang akan diambil.
+
+Aplikasi MySejahtera berfungsi mulai 20 April 2020 untuk membantu dalam
+pengawasan penularan wabak COVID-19 dengan membolehkan pengguna
+melaksanakan penilaian kesihatan kendiri atau se/f-apply. Sehingga 26 Julai 2021 iaitu
+semalam, MySejahtera telah berjaya mencapai 27.7 juta pengguna aktif yang berdaftar
+dan 2.44 juta premis perniagaan berdaftar. Selain itu, MySejahtera telah merekodkan
+6.7 bilion jumlah kumulatif check-in ke premis berdaftar menggunakan imbasan kod QR
+dengan purata 19.3 juta check-in sehari.
+
+Aplikasi MySejahtera juga digunakan untuk mengesan kes-kes positif COVID-
+19 melalui penilaian kesihatan kendiri oleh pengguna dan pengesahan kontak rapat
+melalui semakan data oleh pejabat kesihatan daerah dengan pangkalan data
+MySejahtera.
+
+Selain itu, sistem awal yang dipanggil HIDE atau Hotspot Identification for
+Dynamic Engagement juga telah dibangunkan pada April 2021 menggunakan data dan
+sistem MySejahtera. Sistem ini bertujluan memberi amaran awal dalam mencegah
+peningkatan jangkitan COVID-19 dengan menggunakan data daripada aplikasi
+MySejahtera. Sistem HIDE boleh mengenal pasti sesuatu kawasan dan premis yang
+berisiko atau berpotensi menjadi hotspot atau pusat penyebaran jangkitan melalui
+analisis data raya (big data) dan kecerdasan buatan (artificial intelligence).
+
+Kini, fungsi MySejahtera terus diperluaskan dalam pelaksanaan Program
+Imunisasi COVID-19 Kebangsaan (PICK) sebagai sijil vaksin digital bagi COVID-19. Sijil
+ini boleh diakses melalui paparan pada ikon profil di aplikasi Mysejahtara milik individu
+yang terlibat.
+
+Selain itu, untuk memastikan pengurusan bekalan produk vaksin yang cekap,
+Vaccine Management System (VMS) telah dibangunkan. Semua penerimaan stok vaksin
+COVID-19 telah direkodkan melalui VMS yang juga berintegrasi dengan MySejahtera
+bagi memastikan pergerakan vaksin bermula dari pembekal hingga ke penerima vaksin
+boleh dipantau.
+
+Daripada aspek pengurusan wabak COVID-19, elemen lokasi adalah amat
+berguna bagi mengenal pasti kawasan berisiko untuk menentukan corak penyebaran
+atau kluster yang berlaku. Melalui sistem GIS MyHDW, maklumat geospatial digunakan
+oleh CPRC di peringkat kebangsaan dan negeri dalam membuat keputusan bagi
+pemantauan bilangan kes serta langkah-langkah kawalan yang perlu diambil secara
+bersasar.
+
+Tuan Yang di-Pertua, program vaksinasi merupakan langkah strategik yang
+dirangka oleh kerajaan bagi membendung wabak COVID-19 di negara ini. Sebelum
