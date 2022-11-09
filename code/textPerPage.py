@@ -6,6 +6,10 @@ import pathlib
 import re
 import zipfile
 import shutil
+import PyPDF2
+from pdfminer.high_level import extract_text
+from tqdm import tqdm
+import fitz
 
 # %%
 # helper function
@@ -83,15 +87,17 @@ def mpHadir(fileName, pdfPath):
             startPage = i
         if 'yangtidakhadir' in curPage: 
             endPage = i
-        if startPage and endPage:
-            break
-        else:
-            continue
+
+            # by logic start should be less than end
+            if startPage and endPage:
+                break
+            else:
+                continue
 
     page = extract_text(TEST, page_numbers=[x for x in range(startPage, endPage+1)])
     page = ' '.join(page.split())
 
-    patterns = ['YAB.*?\(', 'YB.*?\(']
+    patterns = ['YAB.*?\)', 'YB.*?\)']
 
     yang_hadir = []
     for pattern in patterns:
@@ -101,11 +107,21 @@ def mpHadir(fileName, pdfPath):
     for i, hadir in enumerate(yang_hadir):
         hadir = re.sub('YB.', '', hadir)
         hadir = re.sub('YAB.', '', hadir)
-        hadir = re.sub(r'[()]', '', hadir)
-        hadir = ' '.join(hadir.split())
-        yang_hadir[i] = hadir
+        #hadir = re.sub(r'[()]', '', hadir) # remove brackets
+        # get name of MP
+        peopleHadir = hadir.split('(')[0]
+        peopleHadir = ' '.join(peopleHadir.split()) # cleaning
+        # get seat of MP
+        seatHadir = hadir.split('(')[1]
+        seatHadir = re.sub(r'[()]', '', seatHadir) # cleaning
+        # for dataframe format
+        getHadir = {
+            'MP': peopleHadir,
+            'seat': seatHadir
+        }
+        yang_hadir[i] = getHadir
 
-    return yang_hadir
+    return pd.DataFrame(yang_hadir)
 
 # %%
 # pathing
@@ -119,66 +135,91 @@ AHLI_DEWAN2 = os.path.join(DATA_PATH, 'ahliDewan2.csv')
 ZIP = os.path.join(DATA_PATH, 'GET_TEXT.zip')
 GET_TEXT = os.path.join(DATA_PATH, 'GET_TEXT') # only exist after zip
 
+TEST = os.path.join(PDF, 'hansard_14-03-k01-01.pdf')
 # %%
 ahliDewan2 = pd.read_csv(AHLI_DEWAN2)
 
 # %%
-isExist = os.path.exists(GET_TEXT)
-if not isExist:
-    with zipfile.ZipFile(ZIP, 'r') as zip_ref:
-        zip_ref.extractall(DATA_PATH)
+def extractByName(page, hadir, pdf_page, pdfDate):
+    # create emtpy list
+    allDialog = []
+    # load page
+    text = page.get_text('xhtml')
+
+    # remove inline
+    text = " ".join(text.split())
+    
+    # using name as start
+    for i in range(len(hadir)):
+        pattern = f"{hadir['MP'][i]} \[{hadir['seat'][i]}].*?\<p><b>"
+        matches = re.findall(pattern, text, flags=re.IGNORECASE)
+
+        # extract into dictonary
+        for match in matches:
+            # remove html format
+            patterns = ['</b>', '<b>', '</p>', '<p>', '</i>', '<i>']
+            for pattern in patterns:
+                match = re.sub(pattern, '', match)     
+
+            # to dict
+            dialog = {
+                'MP': name,
+                'dialog': match,
+                'pdf_page': pdf_page,
+                'pdf_date': pdfDate
+            }
+            allDialog.append(dialog)
+    
+    return pd.DataFrame(allDialog)
+
+def extractSession(page):
+    # load page
+    text = page.get_text('xhtml')
+
+    # get pdf date
+    if pdf_page == 10:
+        pattern = 'DR.*?\d{4}\s'
+        pdfDate = re.findall(pattern, text)
+        pdfDate = "".join(pdfDate[0].split())
+        return pdfDate
+
+    else:
+        return False
 
 # %%
-shutil.rmtree(GET_TEXT)
-
-# %%
-dialog_DF = pd.DataFrame()
-for root, dirs, files in os.walk(GET_TEXT):
-    for name in files:
+# emtpy dataframe
+allDialog = pd.DataFrame()
+for root, dirs, files in os.walk(PDF):
+    for name in tqdm(files):
         # get file path
         file = os.path.join(root, name)
+        # read pdf
+        pdf = fitz.open(file)
 
-        # get page number
-        page = name[:-8]
+        # input: fileName, fileName path
+        dfHadir = mpHadir(pdf, PDF)
 
-        # get pdf session
-        pdf = os.path.basename(root)
+        # iterate over page - get date
+        for pdf_page, page in enumerate(pdf):
+            pdfDate = extractSession(page)
+            # if get pdfDate then break
+            if pdfDate:
+                break
+            else:
+                continue
 
-        # mp hadir
-        listHadir = mpHadir(pdf, PDF) ### use name and try else
+        # iterate over page - get dialog
+        for pdf_page, page in enumerate(pdf):
+            pdf_page += 1 # since python index start 0
+            dfDialogPage = extractByName(page, dfHadir, pdf_page, pdfDate)
+            allDialog = pd.concat([allDialog, dfDialogPage], ignore_index=True)
 
-        # for python 3.5 or later
-        txt = pathlib.Path(file).read_text()
-
-        # remove extra inline
-        txt = txt.replace('\n', '')
-
-        # remove extra space
-        txt = " ".join(txt.split())
-
-        # remove space + dash O(regexMatch) compute time
-        txt = spaceDash(txt)
-
-        # extract dialog each MP
-        listDialog = dialogExtractor(txt, ahliDewan2, pdf, page)
-        listDialog = pd.DataFrame(listDialog)
-        dialog_DF = pd.concat([dialog_DF, listDialog], ignore_index=True)
+# here
+# %%
+allDialog['MP'] = allDialog['dialog'].apply(lambda x: x.split('[')[0])
+allDialog['seat'] = allDialog['dialog'].apply(lambda x: x.split('[')[1].split(']')[0])
+allDialog['dialog'] = allDialog['dialog'].apply(lambda x: x.split(']')[1])
 
 # %%
-dialog_DF['page_number'] = dialog_DF.page_number.str.extract('(\d+)', expand=True)
-# dialog_DF['dialog'] = dialog_DF.dialog.apply(lambda x: removeExtra(x, ahliDewan2))
-
-
-dialog_DF.to_csv('test.csv', index=False)
-
-# %%
-TEST = os.path.join(PDF, 'hansard_14-03-k01-01.pdf')
-
-import PyPDF2
-from pdfminer.high_level import extract_text
-
-
-
-
-
+allDialog
 # %%
